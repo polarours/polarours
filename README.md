@@ -4,19 +4,13 @@
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=polarours" alt="polarours" /></a> </p>
 
-- 🔭 **I'm currently working on real-time audio & video systems**
-
-- 🌱 **I'm currently learning advanced WebRTC optimization and real-time streaming technologies**
-
-- 👯 **Looking to collaborate on real-time multimedia and system-level engineering projects**
-
 - 📫 **polarours.dev@gmail.com**
-
-- ⚡ **I like Arch, but I like my sanity—so I use Manjaro.**
 
 - 👨‍💻 **[https://github.com/polarours](https://github.com/polarours)**
 
 - 📝 **[https://blog.csdn.net/yiyi135](https://blog.csdn.net/yiyi135)**
+
+- ⚡ **I like Arch, but I like my sanity—so I use Manjaro.**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
