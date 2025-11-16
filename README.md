@@ -1,6 +1,6 @@
-# Hi 👋, I'm Haakon Zhang
+# Manjaro is the best Linux distro
 
-### Manjaro is the best Linux distro
+### Hi 👋, I'm Haakon Zhang
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=polarours" alt="polarours" /></a> </p>
 
@@ -14,9 +14,9 @@
 
 - ⚡ **I like Arch, but I like my sanity—so I use Manjaro.**
 
-- 👨‍💻 All of my projects are available at **[https://github.com/polarours](https://github.com/polarours)**
+- 👨‍💻 **[https://github.com/polarours](https://github.com/polarours)**
 
-- 📝 I regularly write articles on **[https://blog.csdn.net/yiyi135](https://blog.csdn.net/yiyi135)**
+- 📝 **[https://blog.csdn.net/yiyi135](https://blog.csdn.net/yiyi135)**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
