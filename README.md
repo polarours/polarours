@@ -10,8 +10,6 @@
 
 - 📝 **[https://blog.csdn.net/yiyi135](https://blog.csdn.net/yiyi135)**
 
-- ⚡ **I like Arch, but I like my sanity—so I use Manjaro.**
-
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 <a href="https://github.com/polarours" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="polarours" height="30" width="40" /></a>
