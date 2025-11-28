@@ -1,4 +1,4 @@
-# Manjaro is the best Linux distro
+# Manjaro and Artix: Two perfect Arch-based distros, one for simplicity, one for freedom.
 
 ### Hi 👋, I'm Haakon Zhang
 
