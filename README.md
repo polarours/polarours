@@ -1,6 +1,6 @@
-# Manjaro and Artix: Two perfect Arch-based distros, one for simplicity, one for freedom.
+# Welcome to polarours' cave 🐻‍❄️
 
-### Hi 👋, I'm Haakon Zhang
+### Feel free to look around my repos.
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=polarours" alt="polarours" /></a> </p>
 
