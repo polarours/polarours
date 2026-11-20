@@ -3,9 +3,12 @@
  .bg{fill:#0d1117;stroke:#30363d}.title{fill:#8a93a3;font-size:11px}
  .num{fill:#e6edf3;font-size:34px;font-weight:700}.cap{fill:#7ee787;font-size:10px}
  .sep{stroke:#30363d}
- @media (prefers-color-scheme:light){.bg{fill:#f6f8fa;stroke:#d0d7de}.title{fill:#57606a}.num{fill:#1f2328}.cap{fill:#1a7f37}.sep{stroke:#d0d7de}}
+ @media (prefers-color-scheme:light){
+   .bg{fill:#f6f8fa;stroke:#d0d7de}.title{fill:#57606a}
+   .num{fill:#1f2328}.cap{fill:#1a7f37}.sep{stroke:#d0d7de}
+ }
 </style>
 <rect class="bg" x="1" y="1" width="938" height="148" rx="8"/>
-<text class="title" x="26" y="30">public metrics · github.com/polarours</text>
+<text class="title" x="26" y="30">public metrics · github.com/polarours · live data</text>
 <line class="sep" x1="26" y1="42" x2="914" y2="42"/>
-<text class="num" opacity="0.92" x="26" y="92"><animate attributeName="opacity" values="0.88;1;0.88" dur="3s" repeatCount="indefinite"/>387</text><text class="cap" x="26" y="116">commits · last 53 weeks</text><line class="sep" x1="226" y1="62" x2="226" y2="126"/><text class="num" opacity="0.92" x="251" y="92"><animate attributeName="opacity" values="0.88;1;0.88" dur="3s" repeatCount="indefinite"/>12</text><text class="cap" x="251" y="116">public repositories</text><line class="sep" x1="451" y1="62" x2="451" y2="126"/><text class="num" opacity="0.92" x="476" y="92"><animate attributeName="opacity" values="0.88;1;0.88" dur="3s" repeatCount="indefinite"/>58</text><text class="cap" x="476" y="116">followers</text><line class="sep" x1="676" y1="62" x2="676" y2="126"/><text class="num" opacity="0.92" x="701" y="92"><animate attributeName="opacity" values="0.88;1;0.88" dur="3s" repeatCount="indefinite"/>9</text><text class="cap" x="701" y="116">stars earned</text></svg>
+<text class="num" x="26" y="92">387</text><text class="cap" x="26" y="116">commits in 2026</text><line class="sep" x1="226" y1="62" x2="226" y2="126"/><text class="num" x="251" y="92">12</text><text class="cap" x="251" y="116">public repositories</text><line class="sep" x1="451" y1="62" x2="451" y2="126"/><text class="num" x="476" y="92">58</text><text class="cap" x="476" y="116">followers</text><line class="sep" x1="676" y1="62" x2="676" y2="126"/><text class="num" x="701" y="92">9</text><text class="cap" x="701" y="116">stars earned</text></svg>
