@@ -1,0 +1,24 @@
+name: refresh profile art
+
+on:
+  schedule:
+    - cron: '17 0 * * *'   # 每天 00:17 UTC 重画贡献图
+  workflow_dispatch:       # 也可手动触发
+
+permissions:
+  contents: write          # auto-commit 需要写权限
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate contribution segmentation SVG
+        run: python3 scripts/gen_contrib_seg.py
+
+      - name: Commit only if the SVG changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: refresh contribution segmentation [skip ci]"
+          file_pattern: assets/contrib_seg.svg
