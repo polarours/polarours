@@ -1,5 +1,3 @@
-<img align="right" width="92" alt="Howie" src="https://raw.githubusercontent.com/polarours/polarours/main/assets/avatar.png?v=2" />
-
 # Howie (polarours)
 
 Linux tinkerer, segmentation researcher and Arch + Hyprland daily driver. I am currently developing tools for the Hyprland environment and writing about modern C++. Everything I maintain lives in [my repositories](https://github.com/polarours).
