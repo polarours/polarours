@@ -142,7 +142,7 @@
 
   <!-- Bottom register -->
   <g transform="translate(60,396)" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="3" fill="#5a648b">
-    <text>GITHUB.COM/POLAROURS  ·  @POLAROURS  ·  POLAROURS@ZOHOMAIL.COM</text>
+    <text>POLAROURS@ZOHOMAIL.COM  ·  OPEN TO COLLABORATION</text>
   </g>
   <text x="1140" y="396" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="10" fill="#58a6ff" letter-spacing="3">↻ ROTATION T = 22s</text>
 </svg>
