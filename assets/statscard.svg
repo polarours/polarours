@@ -1,14 +1,148 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 150" width="940" height="150" fill="none" font-family="JetBrains Mono, Consolas, monospace" role="img" aria-label="public GitHub metrics">
-<style>
- .bg{fill:#0d1117;stroke:#30363d}.title{fill:#8a93a3;font-size:11px}
- .num{fill:#e6edf3;font-size:34px;font-weight:700}.cap{fill:#7ee787;font-size:10px}
- .sep{stroke:#30363d}
- @media (prefers-color-scheme:light){
-   .bg{fill:#f6f8fa;stroke:#d0d7de}.title{fill:#57606a}
-   .num{fill:#1f2328}.cap{fill:#1a7f37}.sep{stroke:#d0d7de}
- }
-</style>
-<rect class="bg" x="1" y="1" width="938" height="148" rx="8"/>
-<text class="title" x="26" y="30">public metrics · github.com/polarours · live data</text>
-<line class="sep" x1="26" y1="42" x2="914" y2="42"/>
-<text class="num" x="26" y="92">387</text><text class="cap" x="26" y="116">commits in 2026</text><line class="sep" x1="226" y1="62" x2="226" y2="126"/><text class="num" x="251" y="92">12</text><text class="cap" x="251" y="116">public repositories</text><line class="sep" x1="451" y1="62" x2="451" y2="126"/><text class="num" x="476" y="92">58</text><text class="cap" x="476" y="116">followers</text><line class="sep" x1="676" y1="62" x2="676" y2="126"/><text class="num" x="701" y="92">9</text><text class="cap" x="701" y="116">stars earned</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="Tech Sphere">
+  <defs>
+    <radialGradient id="ts-halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0"   stop-color="#7ee787" stop-opacity="0.3"/>
+      <stop offset="0.6" stop-color="#7ee787" stop-opacity="0.05"/>
+      <stop offset="1"   stop-color="#7ee787" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ts-sphere" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0"   stop-color="#161b22"/>
+      <stop offset="0.6" stop-color="#0d1117"/>
+      <stop offset="1"   stop-color="#0d1117"/>
+    </radialGradient>
+    <radialGradient id="ts-shine" cx="0.3" cy="0.25" r="0.3">
+      <stop offset="0" stop-color="#58a6ff" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#58a6ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ts-rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7ee787" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#58a6ff" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="ts-soft">
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="420" fill="#0d1117"/>
+
+  <!-- Background grid -->
+  <g stroke="#21262d" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="420"/>
+    <line x1="400" y1="0" x2="400" y2="420"/>
+    <line x1="600" y1="0" x2="600" y2="420"/>
+    <line x1="800" y1="0" x2="800" y2="420"/>
+    <line x1="1000" y1="0" x2="1000" y2="420"/>
+  </g>
+
+  <!-- Side panel — left -->
+  <g transform="translate(60,80)">
+    <g font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="4" fill="#7ee787">
+      <line x1="0" y1="-10" x2="20" y2="-10" stroke="#7ee787" stroke-width="0.6"/>
+      <text x="28" y="-6">TOOL ORBIT · v.2026 · LIVE</text>
+    </g>
+    <text y="40" font-family="'Fraunces', 'Playfair Display', Georgia, serif" font-size="56" font-weight="500" font-style="italic" fill="#e8edff" letter-spacing="-1.5">Howie</text>
+    <text y="68" font-family="'JetBrains Mono', monospace" font-size="11" fill="#7ee787" letter-spacing="3">SEGMENTATION RESEARCH · HYPRLAND TOOLING</text>
+
+    <line x1="0" y1="100" x2="380" y2="100" stroke="#30363d" stroke-width="0.6"/>
+
+    <text y="128" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cbd5e1">Tools in orbit. The wider the ring, the longer</text>
+    <text y="148" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cbd5e1">I have leaned on it; inner ones are newer.</text>
+    <text y="168" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cbd5e1">Outer rings are daily drivers; the centre</text>
+    <text y="188" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cbd5e1">is whatever this week's experiment is.</text>
+
+    <line x1="0" y1="220" x2="380" y2="220" stroke="#30363d" stroke-width="0.6"/>
+
+    <g transform="translate(0,250)" font-family="'JetBrains Mono', monospace" font-size="10" fill="#a5b4cf" letter-spacing="2">
+      <text>OUTER RING</text>   <text x="96" fill="#7ee787">rust · c++ · linux</text>
+      <text y="20">MIDDLE</text>      <text x="96" y="20" fill="#7ee787">lua · arch</text>
+      <text y="40">INNER</text>       <text x="96" y="40" fill="#58a6ff">hyprland · research</text>
+    </g>
+  </g>
+
+  <!-- Vertical separator -->
+  <line x1="500" y1="60" x2="500" y2="380" stroke="#30363d" stroke-width="0.6"/>
+
+  <!-- Sphere — right -->
+  <g transform="translate(840,210)">
+    <!-- Halo -->
+    <circle r="220" fill="url(#ts-halo)"/>
+    <!-- Sphere base -->
+    <circle r="160" fill="url(#ts-sphere)"/>
+    <!-- Specular shine -->
+    <circle r="160" fill="url(#ts-shine)"/>
+    <!-- Rim light -->
+    <circle r="160" fill="none" stroke="url(#ts-rim)" stroke-width="1.2"/>
+
+    <!-- Latitude ellipses (rotating group) -->
+    <g filter="url(#ts-soft)">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="22s" repeatCount="indefinite"/>
+      <ellipse rx="160" ry="60" fill="none" stroke="#7ee787" stroke-width="0.6" opacity="0.5"/>
+      <ellipse rx="160" ry="60" fill="none" stroke="#7ee787" stroke-width="0.6" opacity="0.4" transform="rotate(60)"/>
+      <ellipse rx="160" ry="60" fill="none" stroke="#7ee787" stroke-width="0.6" opacity="0.4" transform="rotate(120)"/>
+      <ellipse rx="160" ry="20" fill="none" stroke="#58a6ff" stroke-width="0.5" opacity="0.4"/>
+      <ellipse rx="160" ry="100" fill="none" stroke="#58a6ff" stroke-width="0.5" opacity="0.4"/>
+      <ellipse rx="60" ry="160" fill="none" stroke="#7ee787" stroke-width="0.5" opacity="0.35"/>
+      <ellipse rx="120" ry="160" fill="none" stroke="#7ee787" stroke-width="0.5" opacity="0.35"/>
+    </g>
+
+    <!-- Tech tokens (counter-rotating to stay readable) -->
+    <g font-family="'JetBrains Mono', monospace" font-size="13" font-weight="500">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="22s" repeatCount="indefinite"/>
+      <!-- Radius encodes tenure, and now actually does: 137 for the stable
+           ring, 113 for trusted, 92 for what is still new. The old positions
+           varied between 98 and 133 without meaning anything, which made the
+           caption beside the sphere a claim the picture did not support. -->
+      <g transform="translate(-135,-24)">
+        <circle r="3" fill="#7ee787"/>
+        <text x="10" y="4" fill="#7ee787">rust</text>
+      </g>
+      <g transform="translate(-69,-119)">
+        <circle r="3" fill="#7ee787"/>
+        <text x="10" y="4" fill="#7ee787">c++</text>
+      </g>
+      <g transform="translate(-105,88)">
+        <circle r="3" fill="#7ee787"/>
+        <text x="10" y="4" fill="#7ee787">linux</text>
+      </g>
+      <g transform="translate(98,57)">
+        <circle r="3" fill="#7ee787"/>
+        <text x="10" y="4" fill="#7ee787">lua</text>
+      </g>
+      <g transform="translate(10,113)">
+        <circle r="3" fill="#7ee787"/>
+        <text x="10" y="4" fill="#7ee787">arch</text>
+      </g>
+      <!-- The two innermost sit on the right, where a right-hand label would
+           straddle the rim — so this one reads back toward its own dot. -->
+      <g transform="translate(86,-31)">
+        <circle r="3" fill="#58a6ff"/>
+        <text x="-10" y="4" text-anchor="end" fill="#58a6ff">rust</text>
+      </g>
+      <g transform="translate(39,-83)">
+        <circle r="3" fill="#58a6ff"/>
+        <text x="10" y="4" fill="#58a6ff">research</text>
+      </g>
+      <g transform="translate(18,26)" opacity="0.7">
+        <text x="0" y="0" font-style="italic" fill="#fef3c7">// current focus</text>
+      </g>
+    </g>
+
+    <!-- Center node -->
+    <circle r="5" fill="#fef3c7">
+      <animate attributeName="r" values="5;7;5" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="14" fill="none" stroke="#fef3c7" stroke-width="0.6" opacity="0.5">
+      <animate attributeName="r" values="14;22;14" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Bottom register -->
+  <g transform="translate(60,396)" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="3" fill="#5a648b">
+    <text>GITHUB.COM/POLAROURS  ·  @POLAROURS  ·  POLAROURS@ZOHOMAIL.COM</text>
+  </g>
+  <text x="1140" y="396" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="10" fill="#58a6ff" letter-spacing="3">↻ ROTATION T = 22s</text>
+</svg>

@@ -99,6 +99,83 @@ def build_contrib(days, year_totals, year):
     return "".join(parts), total
 
 
+# ---------------------------------------------------------------- constellation
+def build_constellation(days, year):
+    """Busy days become stars; the brightest form a constellation (real data only)."""
+    today = datetime.date.today()
+    elapsed = [x for x in days if x["date"] <= today.isoformat()]
+    active = [x for x in elapsed if x["count"] > 0]
+    total = sum(x["count"] for x in elapsed)
+
+    W, H = 940, 300
+    # Map 53 weeks x 7 days onto a starfield (same grid as the heatmap).
+    x0, y0, cw, ch = 48, 58, 16.4, 28.5
+    stars = []
+    for x in active:
+        d = datetime.date.fromisoformat(x["date"])
+        week = (d - datetime.date(year, 1, 1)).days // 7
+        dow = d.weekday()
+        px, py = x0 + week * cw, y0 + dow * ch
+        r = 0.9 + min(3.4, x["count"] / 4)
+        stars.append((px, py, r, x["count"], x["date"]))
+
+    # Constellation edges: connect the brightest stars in chronological order,
+    # only when they are reasonably close (avoids giant crossing lines).
+    bright = sorted(stars, key=lambda s: -s[3])[:14]
+    bright.sort(key=lambda s: s[4])
+    edges = []
+    for a, b in zip(bright, bright[1:]):
+        dist = ((a[0]-b[0])**2 + (a[1]-b[1])**2) ** 0.5
+        if dist < 150:
+            edges.append((a, b))
+
+    parts = [f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" fill="none" font-family="JetBrains Mono, Consolas, monospace" role="img" aria-label="my year as a constellation of contribution days">
+<style>
+  .grid{{stroke:#21262d;stroke-width:.5;opacity:.7}}
+  .edge{{stroke:#7ee787;stroke-width:1;opacity:.5;stroke-dasharray:3 4}}
+  .halo{{fill:#7ee787;opacity:.10}}.star{{fill:#7ee787;opacity:.85}}
+  .title{{fill:#c9d1d9;font-size:14px;font-weight:600}}.sub{{fill:#6e7681;font-size:10px}}
+  .lbl{{fill:#8b949e;font-size:9px}}
+  @media (prefers-color-scheme:light){{
+    .grid{{stroke:#d0d7de}}.edge{{stroke:#1a7f37}}.halo{{fill:#1a7f37;opacity:.12}}
+    .star{{fill:#1a7f37}}.title{{fill:#1f2328}}.sub{{fill:#57606a}}.lbl{{fill:#57606a}}
+  }}
+  @keyframes tw{{0%,100%{{opacity:.85}}50%{{opacity:.35}}}}
+  .tw{{animation:tw 4s ease-in-out infinite}}
+</style>
+<text class="title" x="42" y="30">a constellation of shipped days</text>
+<text class="sub" x="42" y="48">{total} contributions in {year} · {len(active)} active days · each star is a day I showed up</text>
+''']
+    # faint calendar grid
+    for w in range(53):
+        px = x0 + w * cw
+        parts.append(f'<line class="grid" x1="{px:.1f}" y1="58" x2="{px:.1f}" y2="257"/>')
+    for r in range(7):
+        py = y0 + r * ch
+        parts.append(f'<line class="grid" x1="48" y1="{py:.1f}" x2="{x0+52*cw:.1f}" y2="{py:.1f}"/>')
+
+    # constellation edges (draw first, under stars)
+    for a, b in edges:
+        parts.append(f'<line class="edge" x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}"/>')
+
+    # stars: halo + core, twinkle on the brightest ones
+    import math
+    for i,(px,py,r,cnt,date) in enumerate(stars):
+        cls = ' class="tw"' if i % 3 == 0 else ''
+        delay = (i % 7) * 0.4
+        parts.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{r*2.6:.1f}" fill="#7ee787" opacity=".08"/>')
+        star = f'<circle{cls} cx="{px:.1f}" cy="{py:.1f}" r="{r:.1f}" fill="#7ee787" opacity=".85">'
+        if i % 3 == 0:
+            star += f'<animate attributeName="opacity" values=".85;.35;.85" dur="4s" begin="{delay:.1f}s" repeatCount="indefinite"/>'
+        star += '</circle>'
+        parts.append(star)
+
+    parts.append('<text class="lbl" x="42" y="285">JAN</text>')
+    parts.append(f'<text class="lbl" x="{x0+26*cw:.0f}" y="285" text-anchor="middle">JUL</text>')
+    parts.append(f'<text class="lbl" x="{x0+52*cw:.0f}" y="285" text-anchor="end">DEC</text>')
+    parts.append('</svg>\n')
+    return "".join(parts), total
+
 # ---------------------------------------------------------------- stats card
 def build_stats(repos, followers, commits, year):
     stars = sum(r.get("stargazers_count", 0) for r in repos)
@@ -147,10 +224,11 @@ def main():
     ASSETS.mkdir(parents=True, exist_ok=True)
     svg, commits = build_contrib(days, data.get("total", {}), year)
     (ASSETS / "contrib_seg.svg").write_text(svg, encoding="utf-8")
+    const, _ = build_constellation(days, year)
+    (ASSETS / "constellation.svg").write_text(const, encoding="utf-8")
 
-    stats, stars = build_stats(repos, user.get("followers", 0), commits, year)
-    (ASSETS / "statscard.svg").write_text(stats, encoding="utf-8")
-    print(f"OK: {year}: {commits} commits; {len(repos)} repos, {user.get('followers')} followers, {stars} stars")
+    active_dates = sum(1 for x in days if x["count"] > 0)
+    print(f"OK: {year}: {commits} commits; {active_dates} active days; constellation + heatmap regenerated")
 
 
 if __name__ == "__main__":
