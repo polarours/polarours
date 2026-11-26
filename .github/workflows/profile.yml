@@ -14,11 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Regenerate contribution segmentation SVG
+      - name: Regenerate profile SVGs from official GitHub data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/gen_contrib_seg.py
 
-      - name: Commit only if the SVG changed
+      - name: Commit only if the SVGs changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: refresh contribution segmentation [skip ci]"
-          file_pattern: assets/contrib_seg.svg
+          commit_message: "chore: refresh profile art [skip ci]"
+          file_pattern: assets/*.svg

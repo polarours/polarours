@@ -1,29 +1,71 @@
 #!/usr/bin/env python3
-"""Regenerate the profile SVG art from public data (stdlib only, runs daily in Actions).
+"""Regenerate the profile SVG art from GitHub's official API (stdlib only, runs daily in Actions).
 
 Outputs:
-  assets/contrib_seg.svg  - contribution grid with a "segmentation frontier"
-  assets/statscard.svg     - public metrics (repos / followers / stars / commits)
+  assets/contrib_seg.svg  - contribution heatmap (one cell per day)
+  assets/constellation.svg - busy days drawn as a constellation
+  assets/hero.svg         - metrics block refreshed with live numbers
 
-Sources (no token required):
-  https://github-contributions-api.jogruber.de/v4/<USER>
-  https://api.github.com/users/<USER>
-  https://api.github.com/users/<USER>/repos
+Data source: GitHub GraphQL contributionsCollection (official, no duplicate counting).
+Needs a token: set GH_TOKEN (locally from ~/.git-credentials, or secrets.GITHUB_TOKEN in Actions).
 On any API failure the previous files are kept, so the workflow never breaks the profile.
 """
 import datetime
 import json
+import os
 import pathlib
+import re
 import sys
 import urllib.request
 
 USER = "polarours"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
-API_CONTRIB = f"https://github-contributions-api.jogruber.de/v4/{USER}"
 API_USER = f"https://api.github.com/users/{USER}"
 API_REPOS = f"https://api.github.com/users/{USER}/repos?per_page=100"
 UA = {"User-Agent": "profile-art-generator"}
+
+
+def get_token():
+    tok = os.environ.get("GH_TOKEN", "")
+    if tok:
+        return tok
+    for line in (pathlib.Path.home() / ".git-credentials").read_text().splitlines():
+        if "github.com" in line and line.startswith("https://"):
+            return line.split("://", 1)[1].rsplit("@", 1)[0].split(":", 1)[1]
+    return ""
+
+
+def fetch_contributions():
+    """Official GitHub GraphQL calendar - no third-party, no inflated counts."""
+    tok = get_token()
+    if not tok:
+        raise RuntimeError("no GitHub token (set GH_TOKEN)")
+    query = ("query($u:String!){user(login:$u){"
+             "contributionsCollection{contributionCalendar{totalContributions weeks{"
+             "contributionDays{date contributionCount}}}}"
+             "followers{totalCount}"
+             "repositories(first:100,ownerAffiliations:OWNER){totalCount nodes{stargazers{totalCount}}}"
+             "}}")
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        data=json.dumps({"query": query, "variables": {"u": USER}}).encode(),
+        headers={"Authorization": f"Bearer {tok}", "User-Agent": "profile-art-generator",
+                 "Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(req, timeout=30) as r:
+        payload = json.load(r)
+    if "errors" in payload:
+        raise RuntimeError(str(payload["errors"])[:200])
+    user = payload["data"]["user"]
+    cal = user["contributionsCollection"]["contributionCalendar"]
+    days = [{"date": x["date"], "count": x["contributionCount"],
+             "level": min(4, (x["contributionCount"] + 2) // 4)}
+            for w in cal["weeks"] for x in w["contributionDays"]]
+    repos = user["repositories"]["nodes"]
+    stats = {"followers": user["followers"]["totalCount"],
+             "repos": user["repositories"]["totalCount"],
+             "stars": sum((r or {}).get("stargazers", {}).get("totalCount", 0) for r in repos)}
+    return days, cal["totalContributions"], stats
 
 
 def fetch(url):
@@ -63,7 +105,7 @@ def build_contrib(days, year_totals, year):
   }}
 </style>
 <text class="title" x="42" y="30">my contribution graph, segmented</text>
-<text class="sub" x="42" y="50">one cell per day — {total} contributions in {year}, region grown from the first commit</text>
+<text class="sub" x="42" y="50">one cell per day — {total} contributions in {year}, one cell per day</text>
 ''']
 
     peaks = []
@@ -206,29 +248,58 @@ def build_stats(repos, followers, commits, year):
     return "".join(parts), stars
 
 
+def refresh_hero_metrics(total, active_days, repos, followers, stars):
+    """Replace the template's fake numbers in hero.svg with real live values."""
+    p = ASSETS / "hero.svg"
+    s = p.read_text()
+    # Template labels are: nodes / edges / signals/sec / commits/yr / repos
+    pairs = [("nodes", "active days", str(active_days)),
+             ("edges", "contributions", str(total)),
+             ("signals/sec", "public repos", str(repos)),
+             ("commits/yr", "followers", str(followers)),
+             ("repos", "stars earned", str(stars))]
+    for old_label, new_label, value in pairs:
+        # match: <text...>old_label</text>  <text...>old_value</text>
+        pat = re.compile(r'(<text[^>]*>)' + re.escape(old_label) +
+                         r'(</text>\s*<text[^>]*>)[^<]*(</text>)')
+        s, n = pat.subn(lambda m: m.group(1) + new_label + m.group(2) + value + m.group(3), s, count=1)
+        if n == 0:
+            # already replaced on a previous run: match by new label
+            pat2 = re.compile(r'(<text[^>]*>' + re.escape(new_label) +
+                              r'</text>\s*<text[^>]*>)[^<]*(</text>)')
+            s, n = pat2.subn(lambda m: m.group(1) + value + m.group(2), s, count=1)
+        if n == 0:
+            print(f"WARNING: hero label '{old_label}' not found", file=sys.stderr)
+    p.write_text(s)
+
+
 def main():
     try:
-        data = fetch(API_CONTRIB)
-        user = fetch(API_USER)
-        repos = fetch(API_REPOS)
+        days, total, stats = fetch_contributions()
     except Exception as e:
         print(f"WARNING: data API unavailable ({e}); keeping existing SVGs.", file=sys.stderr)
         return
 
     year = datetime.date.today().year
-    days = [x for x in data["contributions"] if x["date"].startswith(str(year))]
-    if not days:
+    this_year = [x for x in days if x["date"].startswith(str(year))]
+    if not this_year:
         print("WARNING: no current-year data; keeping existing SVGs.", file=sys.stderr)
         return
 
     ASSETS.mkdir(parents=True, exist_ok=True)
-    svg, commits = build_contrib(days, data.get("total", {}), year)
+    years = {}
+    for x in days:
+        y = x["date"][:4]
+        years[y] = years.get(y, 0) + x["count"]
+    svg, _ = build_contrib(this_year, years, year)
     (ASSETS / "contrib_seg.svg").write_text(svg, encoding="utf-8")
-    const, _ = build_constellation(days, year)
+    const, _ = build_constellation(this_year, year)
     (ASSETS / "constellation.svg").write_text(const, encoding="utf-8")
 
-    active_dates = sum(1 for x in days if x["count"] > 0)
-    print(f"OK: {year}: {commits} commits; {active_dates} active days; constellation + heatmap regenerated")
+    active_days = sum(1 for x in this_year if x["count"] > 0)
+    refresh_hero_metrics(total, active_days, stats["repos"], stats["followers"], stats["stars"])
+    print(f"OK: {year}: {total} commits; {active_days} active days, "
+          f"{stats['repos']} repos, {stats['followers']} followers, {stats['stars']} stars")
 
 
 if __name__ == "__main__":

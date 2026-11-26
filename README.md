@@ -10,8 +10,6 @@ Linux tinkerer, segmentation researcher and Arch + Hyprland daily driver. I am c
 
 Most of my side projects are utilities for the Hyprland ecosystem: [hyprfetch](https://github.com/polarours/hyprfetch) and [hyprbridge](https://github.com/polarours/hyprbridge) in Rust, [hyprshare](https://github.com/polarours/hyprshare) in C++, plus [hyprstream](https://github.com/polarours/hyprstream), [hyprbeat](https://github.com/polarours/hyprbeat) and my [dotfiles](https://github.com/polarours/dotfiles). [Cppuccino](https://github.com/polarours/Cppuccino) is a compact C++ tutorial and reference repo with hands-on examples; [LuaPath](https://github.com/polarours/LuaPath) is my Lua study log.
 
-My research is in semantic segmentation: LCTS-Net for construction-area extraction and FOCS-Net for oil-spill detection. I run the experiments on a 5090, keep a per-project dev log, and treat every number in a paper as something that must be reproducible.
-
 ## A year of shipped days
 
 <img width="100%" alt="My contributions as a constellation" src="https://raw.githubusercontent.com/polarours/polarours/main/assets/constellation.svg?v=4" />
