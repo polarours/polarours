@@ -105,7 +105,7 @@ def build_contrib(days, year_totals, year):
   }}
 </style>
 <text class="title" x="42" y="30">my contribution graph, segmented</text>
-<text class="sub" x="42" y="50">one cell per day — {total} contributions in {year}, one cell per day</text>
+<text class="sub" x="42" y="50">one cell per day — {total} contributions in {year}</text>
 ''']
 
     peaks = []
