@@ -17,7 +17,7 @@ jobs:
       - name: Regenerate profile SVGs from official GitHub data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 scripts/gen_contrib_seg.py
+        run: python3 scripts/gen_profile_art.py
 
       - name: Commit only if the SVGs changed
         uses: stefanzweifel/git-auto-commit-action@v5
